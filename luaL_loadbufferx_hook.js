@@ -33,17 +33,17 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
         // }
 
         //Replace
-        if (sz > 0 && name.readUtf8String().includes('')) {
-          let fp = new File('/data/data/' + pkg + '/files/' + 'ActorBase', 'rb');
-          fp.seek(0, File.SEEK_END);
-          let new_sz = fp.tell();
-          fp.seek(0, File.SEEK_SET);
-          let ab = fp.readBytes();
-          let new_buff = ab.unwrap()
-          fp.close();
-          console.log('replaced');
-          return luaL_loadbufferx(L, new_buff, new_sz, name, mode);
-        }
+        // if (sz > 0 && name.readUtf8String().includes('')) {
+        //   let fp = new File('/data/data/' + pkg + '/files/' + 'ActorBase', 'rb');
+        //   fp.seek(0, File.SEEK_END);
+        //   let new_sz = fp.tell();
+        //   fp.seek(0, File.SEEK_SET);
+        //   let ab = fp.readBytes();
+        //   let new_buff = ab.unwrap()
+        //   fp.close();
+        //   console.log('replaced');
+        //   return luaL_loadbufferx(L, new_buff, new_sz, name, mode);
+        // }
 
         return luaL_loadbufferx(L, buff, sz, name, mode);
       }, 'int', ['pointer', 'pointer', 'int', 'pointer', 'pointer']));
