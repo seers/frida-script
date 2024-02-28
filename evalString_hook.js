@@ -27,7 +27,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
         //   console.log('dump:', fileName.readUtf8String());
         // }
 
-        //Patch
+        //Patch on-the-fly
         // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
         //   scriptStr.add(0x2DEA7).writeByteArray([0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x39, 0x30, 0x30, 0x30]);
         // }
