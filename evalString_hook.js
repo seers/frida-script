@@ -20,7 +20,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
 
         //Dump
         // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-        //   let file = new File('/data/data/' + pkg + '/files/' + fileName.readUtf8String().split('/').pop(), 'wb');
+        //   let file = new File('/sdcard/Android/data/' + pkg + '/files/' + fileName.readUtf8String().split('/').pop(), 'wb');
         //   file.write(scriptStr.readByteArray(length));
         //   file.flush();
         //   file.close();
@@ -34,7 +34,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
 
         //Replace
         // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-        //   let fp = new File('/data/data/' + pkg + '/files/' + 'index.jsc', 'rb');
+        //   let fp = new File('/sdcard/Android/data/' + pkg + '/files/' + 'index.jsc', 'rb');
         //   fp.seek(0, File.SEEK_END);
         //   let newLength = fp.tell();
         //   fp.seek(0, File.SEEK_SET);

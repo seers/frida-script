@@ -20,7 +20,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
 
         //Dump
         // if (sz > 0 && !name.readUtf8String().includes(' ')) {
-        //   let file = new File('/data/data/' + pkg + '/files/lua/' + name.readUtf8String().split('/').pop(), 'wb');
+        //   let file = new File('/sdcard/Android/data/' + pkg + '/files/lua/' + name.readUtf8String().split('/').pop(), 'wb');
         //   file.write(buff.readByteArray(sz));
         //   file.flush();
         //   file.close();
@@ -34,7 +34,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
 
         //Replace
         // if (sz > 0 && name.readUtf8String().includes('')) {
-        //   let fp = new File('/data/data/' + pkg + '/files/' + 'ActorBase', 'rb');
+        //   let fp = new File('/sdcard/Android/data/' + pkg + '/files/' + 'ActorBase', 'rb');
         //   fp.seek(0, File.SEEK_END);
         //   let new_sz = fp.tell();
         //   fp.seek(0, File.SEEK_SET);
