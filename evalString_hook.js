@@ -10,43 +10,48 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
     if (this.__filename.includes(lib)) {
       console.log('loaded:', lib);
 
-      const evalStringPtr = Module.getBaseAddress(lib).add(offset);
-      const evalString = new NativeFunction(evalStringPtr, 'int', ['pointer', 'pointer', 'int', 'pointer', 'pointer']);
-      
-      Interceptor.replace(evalStringPtr, new NativeCallback((se, scriptStr, length, rval, fileName) => {
-        //Print
-        // console.log('fileName:', fileName.readUtf8String());
-        // console.log('length:', length);
+      Interceptor.attach(Module.getBaseAddress(lib).add(offset), {
+        onEnter(args) {
+          let scriptStr = args[1];
+          let length = Number(args[2]);
+          let fileName = args[4];
 
-        //Dump
-        // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-        //   let file = new File('/sdcard/Android/data/' + pkg + '/files/' + fileName.readUtf8String().split('/').pop(), 'wb');
-        //   file.write(scriptStr.readByteArray(length));
-        //   file.flush();
-        //   file.close();
-        //   console.log('dump:', fileName.readUtf8String());
-        // }
+          //Print
+          // console.log('fileName:', fileName.readUtf8String());
+          // console.log('length:', length);
 
-        //Patch on-the-fly
-        // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-        //   scriptStr.add(0x2DEA7).writeByteArray([0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x39, 0x30, 0x30, 0x30]);
-        // }
+          //Dump
+          // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
+          //   let file = new File('/sdcard/Android/data/' + pkg + '/files/' + fileName.readUtf8String().split('/').pop(), 'wb');
+          //   file.write(scriptStr.readByteArray(length));
+          //   file.flush();
+          //   file.close();
+          //   console.log('dump:', fileName.readUtf8String());
+          // }
 
-        //Replace
-        // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-        //   let fp = new File('/sdcard/Android/data/' + pkg + '/files/' + 'index.jsc', 'rb');
-        //   fp.seek(0, File.SEEK_END);
-        //   let newLength = fp.tell();
-        //   fp.seek(0, File.SEEK_SET);
-        //   let ab = fp.readBytes();
-        //   let newScriptStr = ab.unwrap()
-        //   fp.close();
-        //   console.log('replaced');
-        //   return evalString(se, newScriptStr, newLength, rval, fileName);
-        // }
+          //Patch on-the-fly
+          // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
+          //   scriptStr.add(0x2DEA7).writeByteArray([0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x39, 0x30, 0x30, 0x30]);
+          // }
 
-        return evalString(se, scriptStr, length, rval, fileName);
-      }, 'int', ['pointer', 'pointer', 'int', 'pointer', 'pointer']));
+          //Replace
+          // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
+          //   let fp = new File('/sdcard/Android/data/' + pkg + '/files/' + 'index.jsc', 'rb');
+          //   fp.seek(0, File.SEEK_END);
+          //   const newLength = fp.tell();
+          //   this.newLength = newLength;
+          //   fp.seek(0, File.SEEK_SET);
+          //   const ab = fp.readBytes();
+          //   this.ab = ab;
+          //   fp.close();
+          //   args[2] = ptr(newLength);
+          //   args[1] = ab.unwrap();
+          //   console.log('replaced');
+          // }
+        },
+        onLeave(retval) {
+        }
+      });
     }
   }
 });
