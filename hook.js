@@ -14,6 +14,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
         onEnter(args) {
           let scriptStr = args[1];
           let length = Number(args[2]);
+          //Lua set args 3 here
           let fileName = args[4].readUtf8String();
 
           //Print
