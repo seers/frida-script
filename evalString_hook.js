@@ -21,7 +21,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
           // console.log('length:', length);
 
           //Dump
-          // if (fileName !== null > 0 && fileName.includes('')) {
+          // if (fileName !== null && fileName.includes('')) {
           //   let file = new File('/sdcard/Android/data/' + pkg + '/files/' + fileName.split('/').pop(), 'wb');
           //   file.write(scriptStr.readByteArray(length));
           //   file.flush();
