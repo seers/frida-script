@@ -14,29 +14,29 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
         onEnter(args) {
           let scriptStr = args[1];
           let length = Number(args[2]);
-          let fileName = args[4];
+          let fileName = args[4].readUtf8String();
 
           //Print
-          // console.log('fileName:', fileName.readUtf8String());
+          // console.log('fileName:', fileName);
           // console.log('length:', length);
 
           //Dump
-          // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-          //   let file = new File('/sdcard/Android/data/' + pkg + '/files/' + fileName.readUtf8String().split('/').pop(), 'wb');
+          // if (fileName !== null > 0 && fileName.includes('')) {
+          //   let file = new File('/sdcard/Android/data/' + pkg + '/files/' + fileName.split('/').pop(), 'wb');
           //   file.write(scriptStr.readByteArray(length));
           //   file.flush();
           //   file.close();
-          //   console.log('dump:', fileName.readUtf8String());
+          //   console.log('dump:', fileName);
           // }
 
           //Patch on-the-fly
-          // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-          //   scriptStr.add(0x2DEA7).writeByteArray([0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x39, 0x30, 0x30, 0x30]);
+          // if (fileName !== null && fileName.includes('')) {
+          //   scriptStr.add(0x0).writeByteArray([0x0,]);
           // }
 
           //Replace
-          // if (length > 0 && fileName.readUtf8String().includes('assets/main/index.jsc')) {
-          //   let fp = new File('/sdcard/Android/data/' + pkg + '/files/' + 'index.jsc', 'rb');
+          // if (fileName !== null && fileName.includes('')) {
+          //   let fp = new File('/sdcard/Android/data/' + pkg + '/files/' + '', 'rb');
           //   fp.seek(0, File.SEEK_END);
           //   const newLength = fp.tell();
           //   this.newLength = newLength;
@@ -46,7 +46,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
           //   fp.close();
           //   args[2] = ptr(newLength);
           //   args[1] = ab.unwrap();
-          //   console.log('replaced');
+          //   console.log('Replaced');
           // }
         },
         onLeave(retval) {
