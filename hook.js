@@ -12,9 +12,10 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
 
       Interceptor.attach(Module.getBaseAddress(lib).add(offset), {
         onEnter(args) {
+          //int luaL_loadbufferx(lua_State *L, const char *buf, size_t size, const char *name, const char *mode);
+          //bool evalString(const char* scriptStr, ssize_t length = -1, Value* rval = nullptr, const char* fileName = nullptr);
           let scriptStr = args[1];
           let length = Number(args[2]);
-          //Lua set args 3 here
           let fileName = args[4].readUtf8String();
 
           //Print
