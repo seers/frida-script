@@ -1,6 +1,7 @@
 const lib = '';
 const pkg = '';
 const offset = 0x0;
+const mkdir = new NativeFunction(Module.getExportByName('libc.so', 'mkdir'), 'int', ['pointer', 'int']);
 
 Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
   onEnter(args) {
@@ -24,11 +25,19 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
 
           //Dump
           // if (fileName !== null && fileName.includes('')) {
-          //   let file = new File('/sdcard/Android/data/' + pkg + '/files/' + fileName.split('/').pop(), 'wb');
+          //   let tmp = Process.getTmpDir() + '/';
+          //   let pathParts = fileName.split('/');
+          //   pathParts.pop();
+          //   let path = '';
+          //   pathParts.forEach(pathPart => {
+          //     path += pathPart + '/';
+          //     mkdir(Memory.allocUtf8String(tmp + path), 0o771);
+          //   });
+          //   let file = new File(tmp + fileName, 'wb');
           //   file.write(scriptStr.readByteArray(length));
           //   file.flush();
           //   file.close();
-          //   console.log('dump:', fileName);
+          //   console.log('dump:', tmp + fileName);
           // }
 
           //Patch on-the-fly
