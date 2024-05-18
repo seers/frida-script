@@ -24,6 +24,7 @@ Interceptor.attach(Module.getExportByName('libc.so', 'android_dlopen_ext'), {
           // console.log('length:', length);
 
           //Dump
+          // mkdir(Memory.allocUtf8String(Process.getTmpDir() + '/dump/'), 0o771);
           // if (fileName !== null && fileName.includes('')) {
           //   let tmp = Process.getTmpDir() + '/';
           //   let pathParts = fileName.split('/');
