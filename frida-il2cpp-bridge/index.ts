@@ -7,6 +7,7 @@ Il2Cpp.perform(() => {
     //Trace
     // Il2Cpp.trace()
     //     .assemblies(Il2Cpp.domain.assembly("Heroes"))
+    //     .filterMethods(method => method.name.toLowerCase().includes("begin"))
     //     .and()
     //     .attach();
 
