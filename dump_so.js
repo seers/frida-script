@@ -7,3 +7,4 @@ Memory.protect(m.base, m.size, 'rw-');
 file.write(m.base.readByteArray(m.size));
 file.flush();
 file.close();
+console.log('dump:', '/sdcard/Android/data/' + pkg + '/files/' + m.base + '.' + lib);
