@@ -24,15 +24,24 @@
 //     }
 // });
 
-var isHook = false;
-Interceptor.attach(Module.getExportByName('libc.so', '__system_property_get'), {
+// var isHook = false;
+// Interceptor.attach(Module.getExportByName('libc.so', '__system_property_get'), {
+//     onEnter(args) {
+//         if (Module.findBaseAddress('libmsaoaidsec.so') && !isHook) {
+//             Interceptor.replace(Module.getBaseAddress('libmsaoaidsec.so').add(0x1C544), new NativeCallback(() => {
+//             }, 'void', ['void']));
+//             isHook = true;
+//         }
+//     },
+//     onLeave(log, retval, state) {
+//     }
+// });
+
+Interceptor.attach(Module.getExportByName('libc.so', 'openat'), {
     onEnter(args) {
-        if (Module.findBaseAddress('libmsaoaidsec.so') && !isHook) {
-            Interceptor.replace(Module.getBaseAddress('libmsaoaidsec.so').add(0x1C544), new NativeCallback(() => {
-            }, 'void', ['void']));
-            isHook = true;
-        }
     },
-    onLeave(log, retval, state) {
+    onLeave(retval) {
+        retval.replace(ptr('0x0'));
     }
 });
+
